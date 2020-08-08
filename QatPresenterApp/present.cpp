@@ -7,6 +7,11 @@
 #include <unistd.h>
 #include <cstdlib>
 int main(int argc, char ** argv) {
+  //
+  // Other locales may use "," rather than "." (decimal point). This
+  // unfortunately prevents the interpretation of data on dials and
+  // other widgets. 
+  //
   QLocale::setDefault(QLocale(QLocale::English, QLocale::AnyCountry));
   QApplication app(argc,argv);
   app.addLibraryPath("/usr/local/share/qatplugins");
