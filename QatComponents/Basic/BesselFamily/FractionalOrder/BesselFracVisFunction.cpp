@@ -20,10 +20,13 @@ public:
   BesselFracVisFunction():VisFunction("Bessel J of fractional order") {
 
     FractionalOrder::Bessel p(FractionalOrder::Bessel::FirstKind);
+    FractionalOrder::Bessel n(FractionalOrder::Bessel::FirstKind);
     const Cut<double> & cut = RealArg::Gt(0);
 
     Parameter *order      = new Parameter("Order", 1.0, 0.0, 10.0);
+    AbsParameter *nOrder  = (-(*order)).clone(); 
     p.n().connectFrom(order);
+    n.n().connectFrom(nOrder);
     
 
     PRectF & nr = rectHint();
@@ -34,6 +37,7 @@ public:
 
     addParameter(order);
     addFunction(p,&cut);
+    addFunction(n,&cut);
 
   }
 };

@@ -21,13 +21,13 @@ inline std::string toString(int i) {
   return o.str();
 }
 
-class TchebyshevVisFunction: public VisFunction {
+class UchebyshevVisFunction: public VisFunction {
  
 public:
  
-  TchebyshevVisFunction(int l):VisFunction("T") {
+  UchebyshevVisFunction(int l):VisFunction("U") {
 
-    TchebyshevPolynomial p(l);
+    TchebyshevPolynomial p(l, TchebyshevPolynomial::SecondKind);
     
     PRectF & nr = rectHint();
     nr.setXmin(-1);
