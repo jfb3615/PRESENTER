@@ -13,16 +13,16 @@ public:
   KeplerEquationVisFunction():VisFunction("Kepler equation") {
 
 
-    Parameter *e = new Parameter("Eccentricity", 0.5,     0.0,  1.0);
+    Parameter *e = new Parameter("Eccentricity", 0.99,     0.0,  1.0);
     Variable x;
     GENFUNCTION f = x-(*e)*Sin()(x);
 
     
     PRectF & nr = rectHint();
     nr.setXmin(0);
-    nr.setXmax(100);
+    nr.setXmax(4*M_PI);
     nr.setYmin(0);
-    nr.setYmax(100);
+    nr.setYmax(4*M_PI);
 
     const Cut<double> & cut=RealArg::Gt(0);
 
