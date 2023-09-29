@@ -144,6 +144,7 @@ void SpreadsheetSystemMainWidget::update() {
 	double D=0;
 	int    I=0;
 	unsigned int UI=0;
+        size_t       UI64=0;
 	
 	if (attribute.type()==Attribute::FLOAT) {
 	 
@@ -177,6 +178,14 @@ void SpreadsheetSystemMainWidget::update() {
 	  c->table->read(a+startRow, attribute.name(), UI);
 	  std::ostringstream output;
 	  output << UI;
+	  QTableWidgetItem *item = new QTableWidgetItem();
+	  item->setText(output.str().c_str());
+	  c->ui.tableWidget->setItem(a, n, item);	      
+	}
+	else if (attribute.type()==Attribute::UINT64) {
+	  c->table->read(a+startRow, attribute.name(), UI64);
+	  std::ostringstream output;
+	  output << UI64;
 	  QTableWidgetItem *item = new QTableWidgetItem();
 	  item->setText(output.str().c_str());
 	  c->ui.tableWidget->setItem(a, n, item);	      
