@@ -37,7 +37,7 @@
 #define QatTABBAR_H
 
 #include <QTabBar>
-
+#define QT_NO_WHEELEVENT 1
 class QatTabBar: public QTabBar
 {
     Q_OBJECT

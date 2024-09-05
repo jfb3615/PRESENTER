@@ -42,6 +42,7 @@
 #include "QatPresenter/QatTabBar.h"
 
 #include "QatPresenter/QatTabWidget.h"
+#define QT_NO_WHEELEVENT 1
 
 class QatTabWidget::Private
 {
@@ -270,13 +271,13 @@ int QatTabWidget::tabBarWidthForMaxChars( int /*maxLength*/ )
   //TK-fixme. Just use elide here?
     //TK-fixme    newTitle = KStringHandler::rsqueeze( newTitle, maxLength ).leftJustified( d->m_minLength, ' ' );
 
-    int lw = fm.width( newTitle );
+    int lw = fm.size(Qt::TextSingleLine, newTitle ).width();
     int iw = 0;
     if ( !tabBar()->tabIcon( i ).isNull() ) {
       iw = tabBar()->tabIcon( i ).pixmap( style()->pixelMetric( QStyle::PM_SmallIconSize ), QIcon::Normal ).width() + 4;
     }
     x += ( tabBar()->style()->sizeFromContents( QStyle::CT_TabBarTab, 0L,
-						QSize( qMax( lw + hframe + iw, QApplication::globalStrut().width() ), 0 ),
+						QSize(lw + hframe + iw, 0 ),
 						this ) ).width();
   }
   
@@ -315,7 +316,7 @@ void QatTabWidget::dragEnterEvent( QDragEnterEvent *event )
 
 void QatTabWidget::dragMoveEvent( QDragMoveEvent *event )
 {
-  if ( d->isEmptyTabbarSpace( event->pos() ) ) {
+  if ( d->isEmptyTabbarSpace( event->position().toPoint() ) ) {
     bool accept = false;
     // The receivers of the testCanDecode() signal has to adjust
     // 'accept' accordingly.
@@ -331,7 +332,7 @@ void QatTabWidget::dragMoveEvent( QDragMoveEvent *event )
 
 void QatTabWidget::dropEvent( QDropEvent *event )
 {
-  if ( d->isEmptyTabbarSpace( event->pos() ) ) {
+  if ( d->isEmptyTabbarSpace( event->position().toPoint() ) ) {
     emit ( receivedDropEvent( event ) );
     return;
   }
@@ -345,7 +346,7 @@ void QatTabWidget::wheelEvent( QWheelEvent *event )
   if ( event->orientation() == Qt::Horizontal )
     return;
 
-  if ( d->isEmptyTabbarSpace( event->pos() ) )
+  if ( d->isEmptyTabbarSpace( event->position().toPoint() ) )
     wheelDelta( event->delta() );
   else
     event->ignore();
@@ -373,7 +374,7 @@ void QatTabWidget::mouseDoubleClickEvent( QMouseEvent *event )
   if ( event->button() != Qt::LeftButton )
     return;
 
-  if ( d->isEmptyTabbarSpace( event->pos() ) ) {
+  if ( d->isEmptyTabbarSpace( event->position().toPoint() ) ) {
     emit( mouseDoubleClick() );
     return;
   }
@@ -384,12 +385,12 @@ void QatTabWidget::mouseDoubleClickEvent( QMouseEvent *event )
 void QatTabWidget::mousePressEvent( QMouseEvent *event )
 {
   if ( event->button() == Qt::RightButton ) {
-    if ( d->isEmptyTabbarSpace( event->pos() ) ) {
-      emit( contextMenu( mapToGlobal( event->pos() ) ) );
+    if ( d->isEmptyTabbarSpace( event->position().toPoint() ) ) {
+      emit( contextMenu( mapToGlobal( event->position().toPoint() ) ) );
       return;
     }
-  } else if ( event->button() == Qt::MidButton ) {
-    if ( d->isEmptyTabbarSpace( event->pos() ) ) {
+  } else if ( event->button() == Qt::MiddleButton ) {
+    if ( d->isEmptyTabbarSpace( event->position().toPoint() ) ) {
       emit( mouseMiddleClick() );
       return;
     }

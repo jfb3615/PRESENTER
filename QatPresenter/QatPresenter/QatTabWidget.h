@@ -40,7 +40,7 @@
 
 class QTab;
 class QatTabBar;
-
+#define QT_NO_WHEELEVENT 1
 class QatTabWidget : public QTabWidget
 {
     Q_OBJECT
@@ -52,7 +52,7 @@ class QatTabWidget : public QTabWidget
 
     QatTabBar* getQatTabBar();//Added by TK.
 
-    explicit QatTabWidget( QWidget *parent = 0, Qt::WindowFlags flags = 0 );
+  explicit QatTabWidget( QWidget *parent = 0, Qt::WindowFlags flags = Qt::Widget );
 
     virtual ~QatTabWidget();
 

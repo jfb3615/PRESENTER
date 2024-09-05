@@ -6,7 +6,7 @@ MYCPPFILES           =  $(patsubst ./%,   %,   $(TMCPPFILES))
 MYOFILES             =  $(patsubst %.cpp, %.o, $(MYCPPFILES))
 DSOFILES             =  $(patsubst %.cpp, $(targetdir)/VisFunctions/%.so, $(MYCPPFILES))
 
-override PKG_CONFIG_PATH= $(shell qtpaths --install-prefix)/lib/pkgconfig
+override PKG_CONFIG_PATH= $(shell qtpaths6 --install-prefix)/lib/pkgconfig
 override CXXFLAGS  +=  -I../.. `PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config QatPlotting --cflags`  -fPIC -std=c++17
 override LDFLAGS   +=  `PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config QatPlotting --libs`  -fPIC 
 

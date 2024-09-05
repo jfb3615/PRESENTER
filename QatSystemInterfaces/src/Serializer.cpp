@@ -339,7 +339,7 @@ void Serializer::save(QTreeWidget * treeWidget) {
   save(treeWidget->headerItem()->text(0).toStdString());
   save(treeWidget->headerItem()->text(1).toStdString());
   QList<QTreeWidgetItem *> itemList=treeWidget->findItems("*", Qt::MatchWildcard);
-  save (itemList.size());
+  save ((int) itemList.size());
   for (int i=0;i<itemList.size();i++) {
     save(itemList[i]);
   }

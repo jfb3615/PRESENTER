@@ -170,7 +170,7 @@ void PresenterApplication::Clockwork::handleTable( const Table *table, QTreeWidg
     list << attr.name().c_str();
     list << attr.typeName().c_str();
     QTreeWidgetItem *item=new QTreeWidgetItem(list);
-    item->setFlags(0); // not selectable or anything.. 
+    item->setFlags(Qt::NoItemFlags); // not selectable or anything.. 
     parent->addChild(item);
   }
 }
@@ -579,7 +579,7 @@ void PresenterApplication::selectSaveFile () {
   dialog.setDirectory(c->currentDirectory=="" ? dirbuff : c->currentDirectory.c_str());
   dialog.selectFile(c->currentFilename.c_str());
   dialog.setAcceptMode(QFileDialog::AcceptSave);
-  dialog.setConfirmOverwrite(true);
+  //dialog.setConfirmOverwrite(true);
   if (dialog.exec()) {
     
     QStringList saveFilenames=dialog.selectedFiles();

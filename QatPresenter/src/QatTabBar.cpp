@@ -38,7 +38,7 @@
 #include <QMouseEvent>
 
 #include "QatPresenter/QatTabBar.h"
-
+#define QT_NO_WHEELEVENT 1
 class QatTabBar::Private
 {
   public:
@@ -132,7 +132,7 @@ void QatTabBar::mouseMoveEvent( QMouseEvent *event )
         return;
       }
     }
-  } else if ( event->buttons() == Qt::MidButton ) {
+  } else if ( event->buttons() == Qt::MiddleButton ) {
     if ( d->mReorderStartTab == -1 ) {
       int delay = 5;//TK fixme KGlobalSettings::dndEventDelay();
       QPoint newPos = event->pos();
@@ -177,7 +177,7 @@ void QatTabBar::activateDragSwitchTab()
 
 void QatTabBar::mouseReleaseEvent( QMouseEvent *event )
 {
-  if ( event->button() == Qt::MidButton ) {
+  if ( event->button() == Qt::MiddleButton ) {
     if ( d->mReorderStartTab == -1 ) {
       int tab = selectTab( event->pos() );
       if ( tab != -1 ) {
@@ -203,7 +203,7 @@ void QatTabBar::dragEnterEvent( QDragEnterEvent *event )
 
 void QatTabBar::dragMoveEvent( QDragMoveEvent *event )
 {
-  int tab = selectTab( event->pos() );
+  int tab = selectTab( event->position().toPoint() );
   if ( tab != -1 ) {
     bool accept = false;
     // The receivers of the testCanDecode() signal has to adjust
@@ -224,7 +224,7 @@ void QatTabBar::dragMoveEvent( QDragMoveEvent *event )
 
 void QatTabBar::dropEvent( QDropEvent *event )
 {
-  int tab = selectTab( event->pos() );
+  int tab = selectTab( event->position().toPoint() );
   if ( tab != -1 ) {
     d->mActivateDragSwitchTabTimer->stop();
     d->mDragSwitchTab = 0;
