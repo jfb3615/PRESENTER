@@ -22,7 +22,7 @@ public:
     
 
     // THIS IS A TWO-PARAMETER FUNCTIO
-    Parameter * a   = new Parameter("A", 2.5,  0.1,  10.0);
+    Parameter * a   = new Parameter("A", 2.5,  0.1,  100.0);
     Parameter * b  = new Parameter ("B", 0.4,  0.1,  10.0);
     addParameter(a);
     addParameter(b);
@@ -33,7 +33,7 @@ public:
     
     PRectF & nr = rectHint();
     nr.setXmin(0);
-    nr.setXmax(4);
+    nr.setXmax(10);
     nr.setYmin(0);
     nr.setYmax(1);
 
